@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthService {
-  final String apiUrl = "https://e807-103-212-146-211.ngrok-free.app/auth";
+  final String apiUrl = "https://f955-103-212-146-45.ngrok-free.app/auth";
   final storage = FlutterSecureStorage();
 
   Future<String?> login(String username, String password) async {

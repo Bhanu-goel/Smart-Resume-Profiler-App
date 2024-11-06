@@ -1,21 +1,64 @@
-// lib/screens/login_screen.dart
-
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../services/auth_service.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final AuthService authService = AuthService();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool _rememberMe = false;
 
+  // To load saved username and password (if any) on startup
+  @override
+  void initState() {
+    super.initState();
+    _loadSavedCredentials();
+  }
+
+  // Load saved credentials (if any)
+  _loadSavedCredentials() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedUsername = prefs.getString('username');
+    final savedPassword = prefs.getString('password');
+    final savedRememberMe = prefs.getBool('rememberMe') ?? false;
+
+    if (savedRememberMe && savedUsername != null && savedPassword != null) {
+      setState(() {
+        _rememberMe = savedRememberMe;
+        usernameController.text = savedUsername;
+        passwordController.text = savedPassword;
+      });
+    }
+  }
+
+  // Save credentials if "Remember Me" is checked
+  _saveCredentials() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (_rememberMe) {
+      prefs.setString('username', usernameController.text);
+      prefs.setString('password', passwordController.text);
+      prefs.setBool('rememberMe', true);
+    } else {
+      prefs.remove('username');
+      prefs.remove('password');
+      prefs.remove('rememberMe');
+    }
+  }
+
+  // Handle login
   void login(BuildContext context) async {
     String? token = await authService.login(
       usernameController.text,
       passwordController.text,
     );
     if (token != null) {
+      // Save credentials if "Remember Me" is checked
+      _saveCredentials();
       Navigator.pushReplacementNamed(context, '/home',
           arguments: usernameController.text);
     } else {
@@ -48,7 +91,7 @@ class LoginScreen extends StatelessWidget {
                 // Logo Image
                 Container(
                   width: 100,
-                  height: 100,
+                  height: 94,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
@@ -63,20 +106,9 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                SizedBox(height: 14),
+                SizedBox(height: 9),
 
                 // Title
-                // Text(
-                //   "WELCOME BACK",
-                //   style: TextStyle(
-                //     color: Colors.white,
-                //     fontSize: 2,
-                //     fontWeight: FontWeight.bold,
-                //     letterSpacing: 1.5,
-                //   ),
-                // ),
-                // SizedBox(height: 10),
                 Text(
                   "LOGIN IN",
                   style: TextStyle(
@@ -85,7 +117,7 @@ class LoginScreen extends StatelessWidget {
                     letterSpacing: 1.2,
                   ),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 18),
 
                 // Username Text Field
                 Container(
@@ -110,7 +142,7 @@ class LoginScreen extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                SizedBox(height: 15),
+                SizedBox(height: 8),
 
                 // Password Text Field
                 Container(
@@ -136,7 +168,27 @@ class LoginScreen extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: 14),
+
+                // Remember Me Checkbox
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Checkbox(
+                      value: _rememberMe,
+                      onChanged: (value) {
+                        setState(() {
+                          _rememberMe = value!;
+                        });
+                      },
+                      activeColor: Color(0xFFC0A480),
+                    ),
+                    Text(
+                      "Remember Me",
+                      style: TextStyle(color: Colors.white70),
+                    ),
+                  ],
+                ),
 
                 // Login Button
                 ElevatedButton(
@@ -158,7 +210,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(height: 15),
+                SizedBox(height: 7),
 
                 // Sign Up Text
                 TextButton(

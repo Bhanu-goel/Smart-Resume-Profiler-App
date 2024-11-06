@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
 
+import 'result_screen.dart';
+
 class ResumeAnalysisScreen extends StatefulWidget {
   @override
   _ResumeAnalysisScreenState createState() => _ResumeAnalysisScreenState();
@@ -46,7 +48,7 @@ class _ResumeAnalysisScreenState extends State<ResumeAnalysisScreen> {
       var request = http.MultipartRequest(
         'POST',
         Uri.parse(
-            'https://e807-103-212-146-211.ngrok-free.app/auth/evaluate'), // Replace with your backend URL
+            'https://f955-103-212-146-45.ngrok-free.app/auth/evaluate'), // Replace with your backend URL
       );
       request.fields['domain'] = _selectedDomain!;
       request.files
@@ -60,8 +62,9 @@ class _ResumeAnalysisScreenState extends State<ResumeAnalysisScreen> {
           setState(() {
             _isEvaluating = false; // Reset evaluating status
           });
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Evaluation completed!')),
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ResultScreen()),
           );
         } else {
           // Handle errors
