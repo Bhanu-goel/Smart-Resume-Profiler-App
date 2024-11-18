@@ -16,7 +16,7 @@ class SignupScreen extends StatelessWidget {
       passwordController.text,
     );
     if (token != null) {
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/login');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Signup failed. Try a different username.")),

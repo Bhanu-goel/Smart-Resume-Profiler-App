@@ -48,7 +48,7 @@ class _ResumeAnalysisScreenState extends State<ResumeAnalysisScreen> {
       var request = http.MultipartRequest(
         'POST',
         Uri.parse(
-            'https://f955-103-212-146-45.ngrok-free.app/auth/evaluate'), // Replace with your backend URL
+            'http://127.0.0.1:5000/auth/evaluate'), // Replace with your backend URL
       );
       request.fields['domain'] = _selectedDomain!;
       request.files

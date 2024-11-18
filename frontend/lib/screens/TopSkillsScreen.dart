@@ -7,7 +7,7 @@ class TopSkillsScreen extends StatelessWidget {
   Future<List<String>> _fetchTopSkills() async {
     final response = await http.get(
       Uri.parse(
-          'https://f955-103-212-146-45.ngrok-free.app/auth/getTopSkills'), // Replace with your backend URL
+          'http://127.0.0.1:5000/auth/getTopSkills'), // Replace with your backend URL
     );
 
     if (response.statusCode == 200) {

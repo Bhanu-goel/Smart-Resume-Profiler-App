@@ -6,8 +6,7 @@ class ATSScreen extends StatelessWidget {
   // Fetch ATS Score from the backend API
   Future<String> _fetchATSScore() async {
     // Replace with your backend URL
-    final String apiUrl =
-        'https://f955-103-212-146-45.ngrok-free.app/auth/getATSScore';
+    final String apiUrl = 'http://127.0.0.1:5000/auth/getATSScore';
 
     try {
       final response = await http.get(Uri.parse(apiUrl));

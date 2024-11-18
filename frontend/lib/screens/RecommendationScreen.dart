@@ -7,7 +7,7 @@ class RecommendationScreen extends StatelessWidget {
     try {
       final response = await http.get(
         Uri.parse(
-            'https://f955-103-212-146-45.ngrok-free.app/auth/getRecommendations'), // Replace with your backend URL
+            'http://127.0.0.1:5000/auth/getRecommendations'), // Replace with your backend URL
       );
 
       if (response.statusCode == 200) {
