@@ -4,6 +4,10 @@ import 'ATSScreen.dart';
 import 'RecommendationScreen.dart';
 
 class ResultScreen extends StatelessWidget {
+  final String domain; // Add a domain property
+
+  ResultScreen({required this.domain});
+
   Widget _buildActionButton({
     required BuildContext context,
     required String text,
@@ -81,9 +85,12 @@ class ResultScreen extends StatelessWidget {
               text: 'Check ATS Score',
               icon: Icons.assessment,
               onPressed: () {
+                // Pass the domain to the ATSScreen
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ATSScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => ATSScreen(domain: domain),
+                  ),
                 );
               },
             ),
@@ -94,7 +101,10 @@ class ResultScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TopSkillsScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => TopSkillsScreen(
+                            domain: domain,
+                          )),
                 );
               },
             ),
@@ -106,7 +116,9 @@ class ResultScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => RecommendationScreen()),
+                      builder: (context) => RecommendationScreen(
+                            domain: domain,
+                          )),
                 );
               },
             ),

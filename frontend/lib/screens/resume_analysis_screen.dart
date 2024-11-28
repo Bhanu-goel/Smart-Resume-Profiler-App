@@ -15,13 +15,9 @@ class _ResumeAnalysisScreenState extends State<ResumeAnalysisScreen> {
   bool _isEvaluating = false; // Track evaluation status
 
   final List<String> _jobDomains = [
-    'Software Development',
-    'Data Science',
-    'Marketing',
-    'Finance',
-    'Human Resources',
-    'Design',
-    'Project Management',
+    'software_engineering',
+    'data_science',
+    'marketing',
     // Add more domains as needed
   ];
 
@@ -64,7 +60,10 @@ class _ResumeAnalysisScreenState extends State<ResumeAnalysisScreen> {
           });
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ResultScreen()),
+            MaterialPageRoute(
+                builder: (context) => ResultScreen(
+                      domain: _selectedDomain!,
+                    )),
           );
         } else {
           // Handle errors

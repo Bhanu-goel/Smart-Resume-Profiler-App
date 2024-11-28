@@ -1,0 +1,24 @@
+Position: Software Engineer
+
+Job Summary: We are seeking a talented Software Engineer to join our development team. The ideal candidate will have a strong foundation in software engineering principles, as well as experience in full-stack development. The candidate will be responsible for designing, developing, and maintaining software applications and ensuring the quality and efficiency of code.
+
+Key Responsibilities:
+
+Design, develop, and maintain software applications.
+Collaborate with product teams to translate business requirements into technical solutions.
+Write clean, scalable, and efficient code.
+Work with both front-end and back-end technologies to develop full-stack applications.
+Utilize web frameworks such as Django, Flask, or React for development.
+Develop and maintain databases using MySQL, PostgreSQL, or MongoDB.
+Utilize cloud platforms like AWS or Azure for deployment and scaling.
+Perform code reviews and ensure best practices are followed in the software development process.
+Required Skills & Qualifications:
+
+Strong programming skills in languages like Python, Java, or C++.
+Proficiency in web frameworks such as Django, Flask, or React.
+Experience with relational and non-relational databases such as MySQL, PostgreSQL, or MongoDB.
+Familiarity with version control tools, especially Git.
+Knowledge of cloud platforms like AWS, Azure, or Google Cloud is a plus.
+Strong problem-solving skills and ability to debug and optimize code.
+Excellent teamwork and collaboration skills.
+Bachelor's degree in Computer Science, Software Engineering, or a related field.

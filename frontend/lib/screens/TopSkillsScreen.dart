@@ -3,19 +3,28 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class TopSkillsScreen extends StatelessWidget {
-  // Fetch top skills from the backend
-  Future<List<String>> _fetchTopSkills() async {
-    final response = await http.get(
-      Uri.parse(
-          'http://127.0.0.1:5000/auth/getTopSkills'), // Replace with your backend URL
-    );
+  final String domain; // Domain passed from the previous screen
+
+  TopSkillsScreen({required this.domain});
+
+  // Fetch top skills from the backend using the domain
+  Future<List<String>> _fetchTopSkills(String domain) async {
+    // Construct the URL with the domain as a query parameter
+    final uri = Uri.parse('http://127.0.0.1:5000/auth/getTopSkills')
+        .replace(queryParameters: {'domain': domain});
+
+    // Send the GET request
+    final response = await http.get(uri);
 
     if (response.statusCode == 200) {
+      // Parse the response body
       final data = jsonDecode(response.body);
       List<String> topSkills = List<String>.from(data['top_skills']);
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(
+          Duration(seconds: 2)); // Optional: add delay for better UX
       return topSkills;
     } else {
+      // Handle errors
       throw Exception('Failed to load top skills');
     }
   }
@@ -35,14 +44,14 @@ class TopSkillsScreen extends StatelessWidget {
         ),
         iconTheme: IconThemeData(color: Colors.white),
         title: Text(
-          'Top Skills',
+          'Top Skills for $domain', // Display the domain in the title
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Color(0xFF0D1F2D),
       ),
       backgroundColor: Color(0xFF0D1F2D),
       body: FutureBuilder<List<String>>(
-        future: _fetchTopSkills(),
+        future: _fetchTopSkills(domain),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(

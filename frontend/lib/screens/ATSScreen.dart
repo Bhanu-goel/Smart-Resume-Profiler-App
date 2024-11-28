@@ -3,18 +3,23 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ATSScreen extends StatelessWidget {
+  final String domain; // Pass the selected domain as a parameter
+
+  ATSScreen({required this.domain});
+
   // Fetch ATS Score from the backend API
   Future<String> _fetchATSScore() async {
     // Replace with your backend URL
     final String apiUrl = 'http://127.0.0.1:5000/auth/getATSScore';
 
     try {
-      final response = await http.get(Uri.parse(apiUrl));
+      // Send a GET request with the domain as a query parameter
+      final response = await http.get(Uri.parse('$apiUrl?domain=$domain'));
 
       if (response.statusCode == 200) {
         // If the server returns a 200 OK response, parse the ATS score
         var data = json.decode(response.body);
-        await Future.delayed(Duration(seconds: 2));
+        await Future.delayed(Duration(seconds: 2)); // Simulate a slight delay
         String atsScore = data['ats_score'] ?? 'Error fetching ATS score';
         return atsScore;
       } else {
